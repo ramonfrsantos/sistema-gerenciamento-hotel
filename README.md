@@ -1,4 +1,4 @@
-## Sistema de Gerenciamento de Hotel 🔥
+## Sistema de Gerenciamento de Hotel 🏨
 
 - Serviço de API Rest para gerenciar possíveis atividades de um hotel;
 - Utilização de Java com Spring Boot;
