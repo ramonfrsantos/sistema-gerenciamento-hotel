@@ -1,10 +1,10 @@
-package br.com.ramondev.gerenciamento.hotel;
+package br.com.ramondev.hotel.service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ApplicationTests {
+class HotelServiceApplicationTests {
 
 	@Test
 	void contextLoads() {
