@@ -19,7 +19,7 @@ import br.com.ramondev.hotelservice.model.domain.Apartamento;
 import br.com.ramondev.hotelservice.model.domain.enums.TipoApartamentoEnum;
 import br.com.ramondev.hotelservice.model.dto.ApartamentoDTO;
 import br.com.ramondev.hotelservice.model.exception.ApartmentNotFoundException;
-import br.com.ramondev.hotelservice.model.exception.BadRequestException;
+import br.com.ramondev.hotelservice.model.exception.RegisterBadRequestException;
 import br.com.ramondev.hotelservice.model.repository.ApartamentoRepository;
 import br.com.ramondev.hotelservice.utils.CustomComparator;
 
@@ -37,7 +37,7 @@ public class ApartamentoService {
     Apartamento apartamento = apartamentoRepository.findByNumeroApartamento(numeroApartamento);
 
     if (apartamento == null) {
-      throw new ApartmentNotFoundException("O apartamento não foi encontrado.");
+      throw new ApartmentNotFoundException("O apartamento nao foi encontrado.");
     }
 
     EntityModel<Apartamento> model = EntityModel.of(apartamento);
@@ -64,7 +64,7 @@ public class ApartamentoService {
             .findAllByTipoApartamento(TipoApartamentoEnum.PADRAO);
 
         if (apartamentosTipoPadrao.size() >= 80) {
-          throw new BadRequestException("Nao é possível cadastrar mais apartamentos do tipo 'padrão'");
+          throw new RegisterBadRequestException("Nao e possivel cadastrar mais apartamentos do tipo 'padrao'");
         } else if (apartamentosTipoPadrao.size() == 0) {
           apartamentoCriado.setNumeroApartamento(100);
         } else {
@@ -84,7 +84,7 @@ public class ApartamentoService {
             .findAllByTipoApartamento(TipoApartamentoEnum.PRESIDENCIAL);
 
         if (apartamentosTipoPresidencial.size() >= 2) {
-          throw new BadRequestException("Nao é possível cadastrar mais apartamentos do tipo 'presidencial'");
+          throw new RegisterBadRequestException("Nao e possivel cadastrar mais apartamentos do tipo 'presidencial'");
         } else if (apartamentosTipoPresidencial.size() == 0) {
           apartamentoCriado.setNumeroApartamento(1000);
         } else {
@@ -100,7 +100,7 @@ public class ApartamentoService {
       // -------------
 
       default:
-        throw new ApartmentNotFoundException("O tipo do apartamento não foi especificado.");
+        throw new ApartmentNotFoundException("O tipo do apartamento nao foi especificado.");
     }
 
     apartamentoCriado.setDisponibilidade(true);

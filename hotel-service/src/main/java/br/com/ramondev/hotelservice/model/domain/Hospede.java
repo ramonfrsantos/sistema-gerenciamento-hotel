@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.joda.time.DateTime;
@@ -28,6 +30,7 @@ public class Hospede {
   @Column(name = "email")
   private String emailHospede;
 
+  @Size(min=2, message="O nome deve conter no mínimo 2 caracteres.")
   @Column(name = "nome")
   private String nomeHospede;
 
@@ -37,6 +40,7 @@ public class Hospede {
   @Column(name = "rg")
   private String rgHospede;
   
+  @Past(message="A data deve estar no passado.")
   @Column(name = "data_nascimento")
   private DateTime dataNascimentoHospede;
 }
