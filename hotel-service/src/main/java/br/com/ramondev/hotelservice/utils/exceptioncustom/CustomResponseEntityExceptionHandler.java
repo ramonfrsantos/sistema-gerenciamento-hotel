@@ -13,6 +13,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.ramondev.hotelservice.model.exception.ApartmentNotFoundException;
+import br.com.ramondev.hotelservice.model.exception.HospedeNotFoundException;
 import br.com.ramondev.hotelservice.model.exception.RegisterBadRequestException;
 
 @ControllerAdvice
@@ -58,6 +59,21 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
   }
 
+  @ExceptionHandler(HospedeNotFoundException.class)
+  public final ResponseEntity<Object> handleHospedeNotFoundException(HospedeNotFoundException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
+
+    System.out.println(detailsMessage);
+
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro na requisicao.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+
   @Override
   protected ResponseEntity<Object> handleMethodArgumentNotValid(
       MethodArgumentNotValidException e,
@@ -70,7 +86,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         .getBindingResult()
         .getAllErrors()
         .toString()
-        .replace("]", "")
+        .replace("]", "").replace(" [","")
         .split("default message")[2];
 
     ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "A validação falhou.",

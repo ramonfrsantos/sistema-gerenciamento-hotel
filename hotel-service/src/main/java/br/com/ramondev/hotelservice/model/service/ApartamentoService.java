@@ -106,13 +106,13 @@ public class ApartamentoService {
     apartamentoCriado.setDisponibilidade(true);
     apartamentoCriado = apartamentoRepository.save(apartamentoCriado);
 
-    URI location = ServletUriComponentsBuilder
+    URI locationApartamento = ServletUriComponentsBuilder
         .fromCurrentRequest()
         .path("/{numeroApartamento}")
         .buildAndExpand(apartamentoCriado.getNumeroApartamento())
         .toUri();
 
-    return ResponseEntity.created(location).build();
+    return ResponseEntity.created(locationApartamento).build();
   }
 
 }

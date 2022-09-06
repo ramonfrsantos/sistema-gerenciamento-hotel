@@ -1,14 +1,9 @@
 package br.com.ramondev.hotelservice.model.domain;
 
-import java.util.UUID;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
 
 import org.hibernate.annotations.DynamicUpdate;
 import org.joda.time.DateTime;
@@ -24,23 +19,34 @@ import lombok.EqualsAndHashCode;
 public class Hospede {
   @Id
   @Column(name = "id")
-  private UUID id;
-  
-  @Email(regexp = ".+[@].+[\\.].+")
+  private String id;
+
   @Column(name = "email")
   private String emailHospede;
 
-  @Size(min=2, message="O nome deve conter no mínimo 2 caracteres.")
   @Column(name = "nome")
   private String nomeHospede;
 
   @Column(name = "cpf")
   private String cpfHospede;
-  
+
   @Column(name = "rg")
   private String rgHospede;
-  
-  @Past(message="A data deve estar no passado.")
+
   @Column(name = "data_nascimento")
   private DateTime dataNascimentoHospede;
+
+  public Hospede() {
+  }
+
+  public Hospede(String id, String emailHospede,
+      String nomeHospede, String cpfHospede,
+      String rgHospede, DateTime dataNascimentoHospede) {
+    this.id = id;
+    this.emailHospede = emailHospede;
+    this.nomeHospede = nomeHospede;
+    this.cpfHospede = cpfHospede;
+    this.rgHospede = rgHospede;
+    this.dataNascimentoHospede = dataNascimentoHospede;
+  }
 }
