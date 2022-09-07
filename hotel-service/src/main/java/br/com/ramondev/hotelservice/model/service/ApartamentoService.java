@@ -1,7 +1,5 @@
 package br.com.ramondev.hotelservice.model.service;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.net.URI;
 import java.util.List;
@@ -9,8 +7,6 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -33,19 +29,8 @@ public class ApartamentoService {
     return apartamentoRepository.findAll();
   }
 
-  public EntityModel<Apartamento> buscarApartamento(int numeroApartamento) {
-    Apartamento apartamento = apartamentoRepository.findByNumeroApartamento(numeroApartamento);
-
-    if (apartamento == null) {
-      throw new ApartmentNotFoundException("O apartamento nao foi encontrado.");
-    }
-
-    EntityModel<Apartamento> model = EntityModel.of(apartamento);
-
-    WebMvcLinkBuilder linkToUsers = linkTo(methodOn(this.getClass()).buscarTodosApartamentos());
-    model.add(linkToUsers.withRel("todos-apartamentos"));
-
-    return model;
+  public Apartamento buscarApartamento(int numeroApartamento) {
+    return apartamentoRepository.findByNumeroApartamento(numeroApartamento);
   }
 
   @Transactional

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.NOT_FOUND)
-public class HospedeNotFoundException extends RuntimeException {
-  public HospedeNotFoundException(String message){
+public class RegistrationFormNotFoundException extends RuntimeException {
+  public RegistrationFormNotFoundException(String message){
     super(message);
   }
 }

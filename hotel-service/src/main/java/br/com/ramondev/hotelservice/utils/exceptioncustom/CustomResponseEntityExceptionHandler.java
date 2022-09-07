@@ -13,8 +13,13 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import br.com.ramondev.hotelservice.model.exception.ApartmentNotFoundException;
-import br.com.ramondev.hotelservice.model.exception.HospedeNotFoundException;
+import br.com.ramondev.hotelservice.model.exception.ApartmentsNotAvailableException;
+import br.com.ramondev.hotelservice.model.exception.HotelGuestExistsException;
+import br.com.ramondev.hotelservice.model.exception.HotelGuestNotFoundException;
+import br.com.ramondev.hotelservice.model.exception.InvalidOccupantsNumberException;
 import br.com.ramondev.hotelservice.model.exception.RegisterBadRequestException;
+import br.com.ramondev.hotelservice.model.exception.RegistrationFormNotFoundException;
+import br.com.ramondev.hotelservice.model.exception.ReservationNotFoundException;
 
 @ControllerAdvice
 @RestController
@@ -31,7 +36,7 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
   }
 
   @ExceptionHandler(RegisterBadRequestException.class)
-  public final ResponseEntity<Object> handleBadRequestException(RegisterBadRequestException e,
+  public final ResponseEntity<Object> handleRegisterBadRequestException(RegisterBadRequestException e,
       WebRequest request) {
 
     String detailsMessage = e
@@ -44,6 +49,19 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     return new ResponseEntity<>(exceptionResponse, HttpStatus.valueOf(422));
   }
 
+  @ExceptionHandler(ApartmentsNotAvailableException.class)
+  public final ResponseEntity<Object> handleApartmentsNotAvailableException(ApartmentsNotAvailableException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
+
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Falha no cadastro da reserva.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.valueOf(422));
+  }
+
   @ExceptionHandler(ApartmentNotFoundException.class)
   public final ResponseEntity<Object> handleApartmentNotFoundException(ApartmentNotFoundException e,
       WebRequest request) {
@@ -51,7 +69,18 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     String detailsMessage = e
         .getMessage();
 
-    System.out.println(detailsMessage);
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro na requisicao.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(ReservationNotFoundException.class)
+  public final ResponseEntity<Object> handleReservationNotFoundException(ReservationNotFoundException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
 
     ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro na requisicao.",
         detailsMessage);
@@ -59,14 +88,51 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
   }
 
-  @ExceptionHandler(HospedeNotFoundException.class)
-  public final ResponseEntity<Object> handleHospedeNotFoundException(HospedeNotFoundException e,
+  @ExceptionHandler(RegistrationFormNotFoundException.class)
+  public final ResponseEntity<Object> handleRegistrationFormNotFoundException(RegistrationFormNotFoundException e,
       WebRequest request) {
 
     String detailsMessage = e
         .getMessage();
 
-    System.out.println(detailsMessage);
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro na requisicao.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+  }
+
+  @ExceptionHandler(HotelGuestExistsException.class)
+  public final ResponseEntity<Object> handleHotelGuestExistsException(HotelGuestExistsException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
+
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro ao cadastrar.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);
+  }
+
+  @ExceptionHandler(InvalidOccupantsNumberException.class)
+  public final ResponseEntity<Object> handleInvalidOccupantsNumberException(InvalidOccupantsNumberException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
+
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro ao cadastrar reserva.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);
+  }
+
+  @ExceptionHandler(HotelGuestNotFoundException.class)
+  public final ResponseEntity<Object> handleHospedeNotFoundException(HotelGuestNotFoundException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
 
     ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro na requisicao.",
         detailsMessage);
@@ -79,14 +145,12 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
       MethodArgumentNotValidException e,
       HttpHeaders headers, HttpStatus status, WebRequest request) {
 
-    // expressão para personalizar o que vai ser mostrado no corpo da response
-    // o desejado é apenas a mensagem definida no 'details'
-
     String detailsMessage = e
         .getBindingResult()
         .getAllErrors()
         .toString()
-        .replace("]", "").replace(" [","")
+        .replace("]", "")
+        .replace(" [","")
         .split("default message")[2];
 
     ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "A validação falhou.",

@@ -1,7 +1,6 @@
 package br.com.ramondev.hotelservice.model.domain;
 
 import java.util.Date;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -29,7 +28,7 @@ import lombok.EqualsAndHashCode;
 public class Reserva {
   @Id
   @Column(name = "id")
-  private UUID id;
+  private String id;
 
   @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_realizacao_reserva")
@@ -66,4 +65,23 @@ public class Reserva {
   @OneToOne
   @JoinColumn(name = "fk_hospede")
   private Hospede hospede;
+
+  public Reserva() {
+  }
+
+  public Reserva(String id, Date dataRealizacaoReserva, Date dataChegadaPrevista, Date dataSaidaPrevista,
+      int numeroOcupantes, int numeroApartamento, StatusReservaEnum statusReserva, TipoApartamentoEnum tipoApartamento,
+      boolean pagamentoEfetuado, boolean incluirVagaGaragem, Hospede hospede) {
+    this.id = id;
+    this.dataRealizacaoReserva = dataRealizacaoReserva;
+    this.dataChegadaPrevista = dataChegadaPrevista;
+    this.dataSaidaPrevista = dataSaidaPrevista;
+    this.numeroOcupantes = numeroOcupantes;
+    this.numeroApartamento = numeroApartamento;
+    this.statusReserva = statusReserva;
+    this.tipoApartamento = tipoApartamento;
+    this.pagamentoEfetuado = pagamentoEfetuado;
+    this.incluirVagaGaragem = incluirVagaGaragem;
+    this.hospede = hospede;
+  }
 }

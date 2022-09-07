@@ -16,9 +16,10 @@ public class HospedeDTO {
   @Email(regexp = ".+[@].+[\\.].+")
   private String emailHospede;
 
-  @Size(min = 2, message = "O nome deve conter no mínimo 2 caracteres.")
+  @Size(min = 2, message = "O nome deve conter no minimo 2 caracteres.")
   private String nomeHospede;
   
+  @Size(min = 11, message = "CPF invalido.")
   private String cpfHospede;
   
   private String rgHospede;

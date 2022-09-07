@@ -2,7 +2,6 @@ package br.com.ramondev.hotelservice.model.domain;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -28,7 +27,7 @@ import lombok.EqualsAndHashCode;
 public class FichaCadastro {
   @Id
   @Column(name = "id")
-  private UUID id;
+  private String id;
   
   @OneToOne
   @JoinColumn(name = "fk_hospede")
@@ -52,4 +51,27 @@ public class FichaCadastro {
   @CollectionTable(name = "t_consumo", joinColumns = @JoinColumn(name = "fk_consumo"))
   @Column(name = "consumo")
   private List<Produto> consumo;
+
+  public FichaCadastro() {
+  }
+
+  public FichaCadastro(String id, Hospede hospede, Date dataEntrada, Date dataSaida, double valorHospedagem,
+      boolean pagamentoHospedagemEfetuado, List<Produto> consumo) {
+    this.id = id;
+    this.hospede = hospede;
+    this.dataEntrada = dataEntrada;
+    this.dataSaida = dataSaida;
+    this.valorHospedagem = valorHospedagem;
+    this.pagamentoHospedagemEfetuado = pagamentoHospedagemEfetuado;
+    this.consumo = consumo;
+  }
+
+  public FichaCadastro(String id, Hospede hospede, Date dataEntrada, boolean pagamentoHospedagemEfetuado) {
+    this.id = id;
+    this.hospede = hospede;
+    this.dataEntrada = dataEntrada;
+    this.pagamentoHospedagemEfetuado = pagamentoHospedagemEfetuado;
+  }
+
+  
 }
