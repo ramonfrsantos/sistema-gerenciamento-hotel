@@ -51,7 +51,7 @@ public class ReservaService {
 
   @Transactional
   public ResponseEntity<Object> cadastrarReserva(ReservaDTO reservaDTO) {
-    Hospede hospede = hospedeRepository.findByCpfHospede(reservaDTO.getCpfHospede());
+    Hospede hospede = hospedeRepository.findByCpfHospede(reservaDTO.getCpfHospede().replace(".", "").replace("-", ""));
 
     if (hospede == null) {
       throw new HotelGuestNotFoundException("Hospede nao encontrado no sistema.");

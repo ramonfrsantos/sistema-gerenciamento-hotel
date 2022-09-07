@@ -39,12 +39,12 @@ public class FichaCadastroService {
   }
 
   public FichaCadastro buscarFichaPorCpf(String cpfHospede) {
-    return fichaCadastroRepository.findByHospede(hospedeRepository.findByCpfHospede(cpfHospede));
+    return fichaCadastroRepository.findByHospede(hospedeRepository.findByCpfHospede(cpfHospede.replace(".", "").replace("-", "")));
   }
 
   @Transactional
   public ResponseEntity<Object> fazerCheckIn(FichaCadastroCheckInDTO fichaCheckInDTO){
-    Hospede hospede = hospedeRepository.findByCpfHospede(fichaCheckInDTO.getCpfHospede());
+    Hospede hospede = hospedeRepository.findByCpfHospede(fichaCheckInDTO.getCpfHospede().replace(".", "").replace("-", ""));
 
     if (hospede == null) {
       throw new HotelGuestNotFoundException("Hospede nao encontrado no sistema.");

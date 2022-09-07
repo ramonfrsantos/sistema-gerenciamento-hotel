@@ -7,6 +7,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -47,7 +48,7 @@ public class FichaCadastro {
   @Column(name = "pagamento_hospedagem_efetuado")
   private boolean pagamentoHospedagemEfetuado;
   
-  @ElementCollection
+  @ElementCollection(fetch = FetchType.EAGER)
   @CollectionTable(name = "t_consumo", joinColumns = @JoinColumn(name = "fk_consumo"))
   @Column(name = "consumo")
   private List<Produto> consumo;

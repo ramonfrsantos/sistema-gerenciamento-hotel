@@ -34,7 +34,7 @@ public class HospedeService {
   @Transactional
   public ResponseEntity<Object> cadastrarHospede(HospedeDTO hospedeDTO) {
 
-    if(hospedeRepository.findByCpfHospede(hospedeDTO.getCpfHospede()) != null){
+    if(hospedeRepository.findByCpfHospede(hospedeDTO.getCpfHospede().replace(".", "").replace("-", "")) != null){
       throw new HotelGuestExistsException("Hospede com o CPF informado ja existe no sistema.");
     }
 

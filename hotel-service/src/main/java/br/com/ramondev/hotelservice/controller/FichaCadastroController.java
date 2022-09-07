@@ -35,7 +35,7 @@ public class FichaCadastroController {
     FichaCadastro fichaCadastro = fichaCadastroService.buscarFichaPorCpf(cpfHospede);
     
     if (fichaCadastro == null) {
-      throw new RegistrationFormNotFoundException("Ficha de cadastro nao encontrada no sistema.");
+      throw new RegistrationFormNotFoundException("Hospede nao possui ficha de cadastro no hotel. Verifique se o Check In foi realizado.");
     }
 
     EntityModel<FichaCadastro> model = EntityModel.of(fichaCadastro);
