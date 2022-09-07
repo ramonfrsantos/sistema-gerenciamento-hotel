@@ -1,5 +1,6 @@
 package br.com.ramondev.hotelservice.model.domain;
 
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -11,9 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.joda.time.DateTime;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -32,11 +34,13 @@ public class FichaCadastro {
   @JoinColumn(name = "fk_hospede")
   private Hospede hospede;
   
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_entrada")
-  private DateTime dataEntrada;
+  private Date dataEntrada;
 
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_saida")
-  private DateTime dataSaida;
+  private Date dataSaida;
   
   @Column(name = "valor_hospedagem")
   private double valorHospedagem;

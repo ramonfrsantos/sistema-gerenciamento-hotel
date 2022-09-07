@@ -1,5 +1,6 @@
 package br.com.ramondev.hotelservice.model.domain;
 
+import java.util.Date;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -10,9 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.joda.time.DateTime;
 
 import br.com.ramondev.hotelservice.model.domain.enums.StatusReservaEnum;
 import br.com.ramondev.hotelservice.model.domain.enums.TipoApartamentoEnum;
@@ -29,14 +31,17 @@ public class Reserva {
   @Column(name = "id")
   private UUID id;
 
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_realizacao_reserva")
-  private DateTime dataRealizacaoReserva;
+  private Date dataRealizacaoReserva;
   
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_chegada_prevista")
-  private DateTime dataChegadaPrevista;
+  private Date dataChegadaPrevista;
   
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_saida_prevista")
-  private DateTime dataSaidaPrevista;
+  private Date dataSaidaPrevista;
 
   @Column(name = "numero_ocupantes")
   private int numeroOcupantes;

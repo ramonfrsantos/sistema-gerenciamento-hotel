@@ -10,7 +10,6 @@ import java.util.UUID;
 
 import javax.transaction.Transactional;
 
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
@@ -56,7 +55,7 @@ public class HospedeService {
         hospedeDTO.getNomeHospede(),
         hospedeDTO.getCpfHospede().replace(".", "").replace("-", ""),
         hospedeDTO.getRgHospede().replace(".", "").replace("-", ""),
-        new DateTime(hospedeDTO.getDataNascimentoHospede()));
+        hospedeDTO.getDataNascimentoHospede());
 
     hospedeCriado = hospedeRepository.save(hospedeCriado);
 

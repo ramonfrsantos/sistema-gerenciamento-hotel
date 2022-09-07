@@ -1,12 +1,15 @@
 package br.com.ramondev.hotelservice.model.domain;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.hibernate.annotations.DynamicUpdate;
-import org.joda.time.DateTime;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,15 +36,16 @@ public class Hospede {
   @Column(name = "rg")
   private String rgHospede;
 
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name = "data_nascimento")
-  private DateTime dataNascimentoHospede;
+  private Date dataNascimentoHospede;
 
   public Hospede() {
   }
 
   public Hospede(String id, String emailHospede,
       String nomeHospede, String cpfHospede,
-      String rgHospede, DateTime dataNascimentoHospede) {
+      String rgHospede, Date dataNascimentoHospede) {
     this.id = id;
     this.emailHospede = emailHospede;
     this.nomeHospede = nomeHospede;
