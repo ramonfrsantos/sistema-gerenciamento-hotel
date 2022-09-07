@@ -48,7 +48,7 @@ public class FichaCadastro {
   @Column(name = "pagamento_hospedagem_efetuado")
   private boolean pagamentoHospedagemEfetuado;
   
-  @ElementCollection(fetch = FetchType.EAGER)
+  @ElementCollection(fetch = FetchType.LAZY)
   @CollectionTable(name = "t_consumo", joinColumns = @JoinColumn(name = "fk_consumo"))
   @Column(name = "consumo")
   private List<Produto> consumo;

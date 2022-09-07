@@ -34,6 +34,11 @@ public class HospedeController {
     return hospedeService.buscarTodosHospedes();
   }
 
+  @GetMapping("/hospedes/antigos")
+  public List<Hospede> buscarExHospedes(){
+    return hospedeService.buscarExHospedes();
+  }
+
   @GetMapping("/hospedes/{id}")
   public EntityModel<Optional<Hospede>> buscarHospede(@PathVariable String id){
     Optional<Hospede> hospede = hospedeService.buscarHospede(id);

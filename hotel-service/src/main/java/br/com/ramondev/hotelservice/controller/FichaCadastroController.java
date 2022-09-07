@@ -12,11 +12,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ramondev.hotelservice.model.domain.FichaCadastro;
 import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckInDTO;
+import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckOutDTO;
 import br.com.ramondev.hotelservice.model.exception.RegistrationFormNotFoundException;
 import br.com.ramondev.hotelservice.model.service.FichaCadastroService;
 
@@ -49,5 +51,10 @@ public class FichaCadastroController {
   @PostMapping("/fichas-cadastro/check-in")
   public ResponseEntity<Object> fazerCheckIn(@RequestBody FichaCadastroCheckInDTO fichaCheckInDTO){
     return fichaCadastroService.fazerCheckIn(fichaCheckInDTO);
+  }
+
+  @PutMapping("/fichas-cadastro/check-out")
+  public ResponseEntity<Object> fazerCheckOut(@RequestBody FichaCadastroCheckOutDTO fichaCheckOutDTO){
+    return fichaCadastroService.fazerCheckOut(fichaCheckOutDTO);
   }
 }
