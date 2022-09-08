@@ -1,6 +1,5 @@
 package br.com.ramondev.hotelservice.model.service;
 
-
 import java.net.URI;
 import java.util.List;
 
@@ -33,6 +32,10 @@ public class ApartamentoService {
     return apartamentoRepository.findByNumeroApartamento(numeroApartamento);
   }
 
+  public List<Apartamento> buscarTodosApartamentosPorTipo(TipoApartamentoEnum tipoApartamento) {
+    return apartamentoRepository.findAllByTipoApartamento(tipoApartamento);
+  }
+
   @Transactional
   public ResponseEntity<Object> cadastrarApartamento(ApartamentoDTO apartamentoDTO) {
 
@@ -55,7 +58,8 @@ public class ApartamentoService {
         } else {
           apartamentosTipoPadrao.sort(new CustomComparator());
 
-          apartamentoCriado.setNumeroApartamento(apartamentosTipoPadrao.get(apartamentosTipoPadrao.size()-1).getNumeroApartamento() + 10);
+          apartamentoCriado.setNumeroApartamento(
+              apartamentosTipoPadrao.get(apartamentosTipoPadrao.size() - 1).getNumeroApartamento() + 10);
         }
 
         apartamentoCriado.setPrecoDiariaSegundaASexta(120.0);
@@ -75,7 +79,8 @@ public class ApartamentoService {
         } else {
           apartamentosTipoPresidencial.sort(new CustomComparator());
 
-          apartamentoCriado.setNumeroApartamento(apartamentosTipoPresidencial.get(apartamentosTipoPresidencial.size()-1).getNumeroApartamento() + 1);
+          apartamentoCriado.setNumeroApartamento(
+              apartamentosTipoPresidencial.get(apartamentosTipoPresidencial.size() - 1).getNumeroApartamento() + 1);
         }
 
         apartamentoCriado.setPrecoDiariaSegundaASexta(360.0);

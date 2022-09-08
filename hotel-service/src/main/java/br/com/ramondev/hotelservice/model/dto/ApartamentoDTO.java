@@ -8,4 +8,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class ApartamentoDTO {
   private TipoApartamentoEnum tipoApartamento;
+
+  public ApartamentoDTO() {
+  }
+
+  public ApartamentoDTO(TipoApartamentoEnum tipoApartamento) {
+    this.tipoApartamento = tipoApartamento;
+  }
+
 }
