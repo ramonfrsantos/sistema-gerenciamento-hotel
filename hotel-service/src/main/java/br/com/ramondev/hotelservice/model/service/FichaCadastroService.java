@@ -178,6 +178,7 @@ public class FichaCadastroService {
     System.out.println("Finais de semana: " + finaisDeSemana);
     System.out.printf("Valor final do consumo: R$ %.2f\n", valorFinalConsumo);
     System.out.printf(reserva.isIncluirVagaGaragem() == true ? "Possui vaga na garagem: SIM | Valor total do acrescimo: R$ %.2f\n" : "Possui vaga na garagem: NAO\n", valorVagaGaragem);
+    System.out.printf(fichaCheckOutDTO.getDataSaida().after(dataHoraLimiteCheckOut) ? "Valor diária extra: R$ %.2f\n" : "Check Out realizado antes das 16h30.\n", valorDiariaExtra);
     System.out.println("---------------------------------------------------------------");
 
     double valorTotalHospedagem = (diasSegundaASexta * apartamento.getPrecoDiariaSegundaASexta())
