@@ -38,6 +38,6 @@ public class ReservaControllerTest {
         .when()
         .post("/reservas")
         .then()
-        .statusCode(417);
+        .statusCode(201);
   }
 }

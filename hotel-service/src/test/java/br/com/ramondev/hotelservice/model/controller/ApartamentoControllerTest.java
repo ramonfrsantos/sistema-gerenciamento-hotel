@@ -40,37 +40,11 @@ public class ApartamentoControllerTest {
   }
 
   @Test
-  public void deveCadastrarApartamentosPadraoComSucesso() {
+  public void deveCadastrarApartamentosComSucesso() {
     List<Apartamento> apartamentosTipoPadrao = apartamentoRepository
         .findAllByTipoApartamento(TipoApartamentoEnum.PADRAO);
 
     if (apartamentosTipoPadrao.size() < 80) {
-      RestAssured
-          .given()
-          .body("{\"tipoApartamento\": \"PADRAO\"}")
-          .contentType(ContentType.JSON)
-          .when()
-          .post("/apartamentos")
-          .then()
-          .statusCode(201);
-    } else {
-      RestAssured
-          .given()
-          .body("{\"tipoApartamento\": \"PADRAO\"}")
-          .contentType(ContentType.JSON)
-          .when()
-          .post("/apartamentos")
-          .then()
-          .statusCode(422);
-    }
-  }
-
-  @Test
-  public void deveCadastrarApartamentosPresidencialComSucesso() {
-    List<Apartamento> apartamentosTipoPresidencial = apartamentoRepository
-        .findAllByTipoApartamento(TipoApartamentoEnum.PRESIDENCIAL);
-
-    if (apartamentosTipoPresidencial.size() < 2) {
       RestAssured
           .given()
           .body("{\"tipoApartamento\": \"PADRAO\"}")

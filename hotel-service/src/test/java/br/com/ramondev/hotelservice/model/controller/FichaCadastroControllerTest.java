@@ -47,13 +47,13 @@ public class FichaCadastroControllerTest {
         .when()
         .post("/fichas-cadastro/check-in")
         .then()
-        .statusCode(417);
+        .statusCode(201);
   }
 
   @Test
   public void deveFazerCheckOutComSucesso() {
     FichaCadastroCheckOutDTO dto = new FichaCadastroCheckOutDTO("05548786741",
-        Date.from(Instant.parse("2023-01-12T14:10:00.000Z")));
+        Date.from(Instant.parse("2023-01-12T20:00:00.000Z")));
 
     RestAssured
         .given()
