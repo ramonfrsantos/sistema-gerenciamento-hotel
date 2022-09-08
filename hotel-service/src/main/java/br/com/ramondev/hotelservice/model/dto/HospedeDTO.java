@@ -26,4 +26,17 @@ public class HospedeDTO {
 
   @Past(message = "A data deve estar no passado.")
   private Date dataNascimentoHospede;
+
+  public HospedeDTO(String emailHospede,
+      String nomeHospede,
+      String cpfHospede, String rgHospede,
+      Date dataNascimentoHospede) {
+    this.emailHospede = emailHospede;
+    this.nomeHospede = nomeHospede;
+    this.cpfHospede = cpfHospede;
+    this.rgHospede = rgHospede;
+    this.dataNascimentoHospede = dataNascimentoHospede;
+  }
+
+  
 }

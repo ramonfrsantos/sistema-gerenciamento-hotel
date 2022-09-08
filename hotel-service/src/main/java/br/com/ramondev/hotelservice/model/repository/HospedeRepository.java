@@ -8,4 +8,6 @@ import br.com.ramondev.hotelservice.model.domain.Hospede;
 @Repository
 public interface HospedeRepository extends JpaRepository<Hospede, String> {
   Hospede findByCpfHospede(String cpfHospede);
+
+  Hospede findByEmailHospede(String email);
 }

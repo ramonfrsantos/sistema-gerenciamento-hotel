@@ -18,7 +18,9 @@ import br.com.ramondev.hotelservice.model.exception.HotelGuestExistsException;
 import br.com.ramondev.hotelservice.model.exception.HotelGuestNotFoundException;
 import br.com.ramondev.hotelservice.model.exception.InvalidOccupantsNumberException;
 import br.com.ramondev.hotelservice.model.exception.RegisterBadRequestException;
+import br.com.ramondev.hotelservice.model.exception.RegistrationFormExistsException;
 import br.com.ramondev.hotelservice.model.exception.RegistrationFormNotFoundException;
+import br.com.ramondev.hotelservice.model.exception.ReservationExistsException;
 import br.com.ramondev.hotelservice.model.exception.ReservationNotFoundException;
 
 @ControllerAdvice
@@ -101,6 +103,19 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
     return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
   }
 
+  @ExceptionHandler(RegistrationFormExistsException.class)
+  public final ResponseEntity<Object> handleRegistrationFormExistsException(RegistrationFormExistsException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
+
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro ao fazer o Check In.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);
+  }
+
   @ExceptionHandler(HotelGuestExistsException.class)
   public final ResponseEntity<Object> handleHotelGuestExistsException(HotelGuestExistsException e,
       WebRequest request) {
@@ -109,6 +124,19 @@ public class CustomResponseEntityExceptionHandler extends ResponseEntityExceptio
         .getMessage();
 
     ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro ao cadastrar.",
+        detailsMessage);
+
+    return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);
+  }
+
+  @ExceptionHandler(ReservationExistsException.class)
+  public final ResponseEntity<Object> handleReservationExistsException(ReservationExistsException e,
+      WebRequest request) {
+
+    String detailsMessage = e
+        .getMessage();
+
+    ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), "Erro ao cadastrar reserva.",
         detailsMessage);
 
     return new ResponseEntity<>(exceptionResponse, HttpStatus.EXPECTATION_FAILED);

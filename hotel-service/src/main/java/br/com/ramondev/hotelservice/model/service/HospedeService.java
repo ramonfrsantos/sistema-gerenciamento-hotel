@@ -24,11 +24,16 @@ import br.com.ramondev.hotelservice.model.repository.ReservaRepository;
 @Service
 public class HospedeService {
 
-  @Autowired
   private HospedeRepository hospedeRepository;
 
   @Autowired
   private ReservaRepository reservaRepository;
+
+  @Autowired
+  public HospedeService(HospedeRepository hospedeRepository) {
+    super();
+    this.hospedeRepository = hospedeRepository;
+  }
 
   public List<Hospede> buscarTodosHospedes() {
     return hospedeRepository.findAll();
@@ -38,10 +43,14 @@ public class HospedeService {
     return hospedeRepository.findById(id);
   }
 
+  public Hospede buscarHospedePorCpf(String cpfHospede) {
+    return hospedeRepository.findByCpfHospede(cpfHospede.replace(".", "").replace("-", ""));
+  }
+
   @Transactional
   public ResponseEntity<Object> cadastrarHospede(HospedeDTO hospedeDTO) {
 
-    if(hospedeRepository.findByCpfHospede(hospedeDTO.getCpfHospede().replace(".", "").replace("-", "")) != null){
+    if (hospedeRepository.findByCpfHospede(hospedeDTO.getCpfHospede().replace(".", "").replace("-", "")) != null) {
       throw new HotelGuestExistsException("Hospede com o CPF informado ja existe no sistema.");
     }
 
@@ -66,9 +75,9 @@ public class HospedeService {
 
   public List<Hospede> buscarExHospedes() {
     List<Hospede> exHospedes = new ArrayList<Hospede>();
-    
+
     List<Reserva> reservasEncerradas = reservaRepository.findAllByStatusReserva(StatusReservaEnum.RESERVA_ENCERRADA);
-    for(Reserva reserva: reservasEncerradas){
+    for (Reserva reserva : reservasEncerradas) {
       exHospedes.add(reserva.getHospede());
     }
 

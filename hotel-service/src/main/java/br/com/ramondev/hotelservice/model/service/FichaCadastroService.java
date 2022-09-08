@@ -24,6 +24,7 @@ import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckInDTO;
 import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckOutDTO;
 import br.com.ramondev.hotelservice.model.exception.ApartmentNotFoundException;
 import br.com.ramondev.hotelservice.model.exception.HotelGuestNotFoundException;
+import br.com.ramondev.hotelservice.model.exception.RegistrationFormExistsException;
 import br.com.ramondev.hotelservice.model.exception.RegistrationFormNotFoundException;
 import br.com.ramondev.hotelservice.model.exception.ReservationNotFoundException;
 import br.com.ramondev.hotelservice.model.repository.ApartamentoRepository;
@@ -34,7 +35,6 @@ import br.com.ramondev.hotelservice.model.repository.ReservaRepository;
 @Service
 public class FichaCadastroService {
 
-  @Autowired
   private FichaCadastroRepository fichaCadastroRepository;
 
   @Autowired
@@ -45,6 +45,12 @@ public class FichaCadastroService {
 
   @Autowired
   private ApartamentoRepository apartamentoRepository;
+
+  @Autowired
+  public FichaCadastroService(FichaCadastroRepository fichaCadastroRepository) {
+    super();
+    this.fichaCadastroRepository = fichaCadastroRepository;
+  }
 
   public List<FichaCadastro> buscarTodasFichasCadastro() {
     return fichaCadastroRepository.findAll();
@@ -62,6 +68,11 @@ public class FichaCadastroService {
 
     if (hospede == null) {
       throw new HotelGuestNotFoundException("Hospede nao encontrado no sistema.");
+    }
+
+    FichaCadastro fichaCadastro = fichaCadastroRepository.findByHospede(hospede);
+    if(fichaCadastro != null){
+      throw new RegistrationFormExistsException("O Check In ja foi realizado");
     }
 
     // uma variação mais plausível seria utilizar a data atual como data de check in

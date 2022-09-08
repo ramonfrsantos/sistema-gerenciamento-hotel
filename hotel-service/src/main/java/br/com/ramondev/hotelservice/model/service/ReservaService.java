@@ -21,6 +21,7 @@ import br.com.ramondev.hotelservice.model.exception.ApartmentNotFoundException;
 import br.com.ramondev.hotelservice.model.exception.ApartmentsNotAvailableException;
 import br.com.ramondev.hotelservice.model.exception.HotelGuestNotFoundException;
 import br.com.ramondev.hotelservice.model.exception.InvalidOccupantsNumberException;
+import br.com.ramondev.hotelservice.model.exception.ReservationExistsException;
 import br.com.ramondev.hotelservice.model.repository.ApartamentoRepository;
 import br.com.ramondev.hotelservice.model.repository.HospedeRepository;
 import br.com.ramondev.hotelservice.model.repository.ReservaRepository;
@@ -28,17 +29,26 @@ import br.com.ramondev.hotelservice.model.repository.ReservaRepository;
 @Service
 public class ReservaService {
 
-  @Autowired
   private ReservaRepository reservaRepository;
 
   @Autowired
   private HospedeRepository hospedeRepository;
 
   @Autowired
+  private HospedeService hospedeService;
+
+  @Autowired
   private ApartamentoRepository apartamentoRepository;
 
+  @Autowired
+  public ReservaService(ReservaRepository reservaRepository) {
+    super();
+    this.reservaRepository = reservaRepository;      
+  }
+
   public Reserva buscarReservaPorCpf(String cpfHospede) {
-    return reservaRepository.findByHospede(hospedeRepository.findByCpfHospede(cpfHospede));
+    Hospede hospede = hospedeService.buscarHospedePorCpf(cpfHospede);
+    return reservaRepository.findByHospede(hospede);
   }
 
   public List<Reserva> buscarTodasReservas() {
@@ -52,6 +62,11 @@ public class ReservaService {
   @Transactional
   public ResponseEntity<Object> cadastrarReserva(ReservaDTO reservaDTO) {
     Hospede hospede = hospedeRepository.findByCpfHospede(reservaDTO.getCpfHospede().replace(".", "").replace("-", ""));
+
+    Reserva reserva = reservaRepository.findByHospede(hospede);
+    if(reserva != null){
+      throw new ReservationExistsException("A reserva já consta no sistema.");
+    }
 
     if (hospede == null) {
       throw new HotelGuestNotFoundException("Hospede nao encontrado no sistema.");

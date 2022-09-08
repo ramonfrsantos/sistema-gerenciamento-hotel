@@ -21,8 +21,13 @@ import br.com.ramondev.hotelservice.utils.CustomComparator;
 @Service
 public class ApartamentoService {
 
-  @Autowired
   private ApartamentoRepository apartamentoRepository;
+
+  @Autowired
+  public ApartamentoService(ApartamentoRepository apartamentoRepository) {
+    super();
+    this.apartamentoRepository = apartamentoRepository;
+  }
 
   public List<Apartamento> buscarTodosApartamentos() {
     return apartamentoRepository.findAll();
