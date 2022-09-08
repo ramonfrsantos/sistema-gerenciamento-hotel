@@ -34,6 +34,6 @@ public class ConsumoControllerTest {
         .when()
         .post("/consumo")
         .then()
-        .statusCode(210);
+        .statusCode(201);
   }
 }
