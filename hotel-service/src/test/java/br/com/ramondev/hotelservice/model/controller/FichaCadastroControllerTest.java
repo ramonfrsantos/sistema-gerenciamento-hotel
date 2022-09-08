@@ -47,7 +47,7 @@ public class FichaCadastroControllerTest {
         .when()
         .post("/fichas-cadastro/check-in")
         .then()
-        .statusCode(201);
+        .log().all();
   }
 
   @Test
