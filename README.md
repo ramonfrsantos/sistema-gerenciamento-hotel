@@ -4,6 +4,7 @@ Aplicação para gerenciar um serviço de hotel.
 ##
 Documentação: Swagger "/swagger-ui.html"
 Funcionalidades:
+- Banco de dados MySQL, hospedado em "http://freesqldatabase.com/";
 - Cadastro de apartamentos (PRESIDENCIAL e PADRÃO) : "/apartamentos" [POST]
   - Preços da diária:
     - PADRÃO: R$ 125,00 (segunda a sexta) e R$ 150,00 (finais de smeana)
