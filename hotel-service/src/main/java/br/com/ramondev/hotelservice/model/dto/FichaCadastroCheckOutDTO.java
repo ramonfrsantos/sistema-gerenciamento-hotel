@@ -10,4 +10,13 @@ import lombok.EqualsAndHashCode;
 public class FichaCadastroCheckOutDTO {
   private String cpfHospede;
   private Date dataSaida;
+  
+  public FichaCadastroCheckOutDTO(String cpfHospede, Date dataSaida) {
+    this.cpfHospede = cpfHospede;
+    this.dataSaida = dataSaida;
+  }
+
+  public FichaCadastroCheckOutDTO() {
+  }
+
 }

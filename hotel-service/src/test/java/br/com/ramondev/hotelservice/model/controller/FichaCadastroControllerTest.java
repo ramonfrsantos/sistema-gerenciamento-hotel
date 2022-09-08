@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckInDTO;
+import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckOutDTO;
 import br.com.ramondev.hotelservice.model.repository.FichaCadastroRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -36,7 +37,6 @@ public class FichaCadastroControllerTest {
   public void deveFazerCheckInComSucesso() {
     FichaCadastroCheckInDTO dto = new FichaCadastroCheckInDTO("05548786741",
         Date.from(Instant.parse("2023-01-01T14:10:00.000Z")));
-    new Date();
 
     RestAssured
         .given()
@@ -48,5 +48,22 @@ public class FichaCadastroControllerTest {
         .post("/fichas-cadastro/check-in")
         .then()
         .statusCode(417);
+  }
+
+  @Test
+  public void deveFazerCheckOutComSucesso() {
+    FichaCadastroCheckOutDTO dto = new FichaCadastroCheckOutDTO("05548786741",
+        Date.from(Instant.parse("2023-01-12T14:10:00.000Z")));
+
+    RestAssured
+        .given()
+        // .body("{\"cpfHospede\": \"05548786741\",\"dataEntrada\":
+        // \"2023-01-01T14:10:00.000Z\"}")
+        .body(dto)
+        .contentType(ContentType.JSON)
+        .when()
+        .put("/fichas-cadastro/check-out")
+        .then()
+        .statusCode(200);
   }
 }
