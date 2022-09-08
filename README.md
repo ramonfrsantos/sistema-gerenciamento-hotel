@@ -24,6 +24,6 @@ A aplicação irá mostrar no console as informações mais relevantes de acordo
 - Se o Check Out foi feito após as 16h30;
   - Caso sim, é cobrada uma diária adicional;
   
-Mais detalhes da documentação com algumas outras funcionalidades, métricas, etc., é possível acessar através do "actuator";
+Mais detalhes da documentação com algumas outras funcionalidades, métricas, etc., é possível acessar através do "/actuator";
 ##
 Assinador por: Ramon Santos
