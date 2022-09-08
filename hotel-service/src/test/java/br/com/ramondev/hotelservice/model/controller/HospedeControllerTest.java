@@ -25,7 +25,7 @@ public class HospedeControllerTest {
 
   @Before
   public void setupMockito() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
     hospedeService = new HospedeService(hospedeRepository);
   }
 

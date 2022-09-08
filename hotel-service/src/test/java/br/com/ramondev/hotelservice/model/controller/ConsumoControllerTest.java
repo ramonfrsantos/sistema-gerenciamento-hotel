@@ -21,7 +21,7 @@ public class ConsumoControllerTest {
 
   @Before
   public void setupMockito() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
     // fichaCadastroService = new FichaCadastroService(fichaCadastroRepository);
   }
 

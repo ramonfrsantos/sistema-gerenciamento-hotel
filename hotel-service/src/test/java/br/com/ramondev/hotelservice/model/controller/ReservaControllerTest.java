@@ -25,7 +25,7 @@ public class ReservaControllerTest {
 
   @Before
   public void setupMockito() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
     reservaService = new ReservaService(reservaRepository);
   }
 

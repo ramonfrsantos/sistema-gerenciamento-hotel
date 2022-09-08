@@ -26,7 +26,7 @@ public class ApartamentoControllerTest {
 
   @Before
   public void setupMockito() {
-    MockitoAnnotations.initMocks(this);
+    MockitoAnnotations.openMocks(this);
   }
 
   @Test
