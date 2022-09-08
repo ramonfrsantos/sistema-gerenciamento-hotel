@@ -1,23 +1,16 @@
 package br.com.ramondev.hotelservice.model.controller;
 
-import java.time.Instant;
-import java.util.Date;
-
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import br.com.ramondev.hotelservice.model.dto.FichaCadastroCheckInDTO;
 import br.com.ramondev.hotelservice.model.repository.FichaCadastroRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 
-public class FichaCadastroControllerTest {
-
-  // private FichaCadastroService fichaCadastroService;
-
+public class ConsumoControllerTest {
   @Mock
   private FichaCadastroRepository fichaCadastroRepository;
 
@@ -33,20 +26,14 @@ public class FichaCadastroControllerTest {
   }
 
   @Test
-  public void deveFazerCheckInComSucesso() {
-    FichaCadastroCheckInDTO dto = new FichaCadastroCheckInDTO("05548786741",
-        Date.from(Instant.parse("2023-01-01T14:10:00.000Z")));
-    new Date();
-
+  public void deveCadastrarConsumocomSucesso(){
     RestAssured
         .given()
-        // .body("{\"cpfHospede\": \"05548786741\",\"dataEntrada\":
-        // \"2023-01-01T14:10:00.000Z\"}")
-        .body(dto)
+        .body("{\"consumo\": [{\"nomeProduto\": \"Agua\",\"preco\": 2.00,\"quantidade\": 3 },{ \"nomeProduto\": \"Refrigerante\",\"preco\": 8.00,\"quantidade\": 5 },{\"nomeProduto\": \"Fritas\",\"preco\": 24.00,\"quantidade\": 1 }],\"cpfHospede\": \"05548786741\"}")
         .contentType(ContentType.JSON)
         .when()
-        .post("/fichas-cadastro/check-in")
+        .post("/consumo")
         .then()
-        .statusCode(417);
+        .statusCode(210);
   }
 }
