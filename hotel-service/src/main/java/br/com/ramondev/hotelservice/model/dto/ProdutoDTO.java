@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProdutoDTO {
   @JsonIgnore
-  private Long id;
+  private String id;
   private String nomeProduto;
   private double preco;
   private int quantidade;
